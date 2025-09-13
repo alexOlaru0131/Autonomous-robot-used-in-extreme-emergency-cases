@@ -68,7 +68,6 @@ static void MX_TIM2_Init(void);
 
 uint8_t rx_byte;
 char rx_buffer[32];
-uint8_t rx_index = 0;
 
 /* USER CODE END 0 */
 
@@ -113,9 +112,6 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
 
   /* USER CODE END 2 */
 
@@ -126,6 +122,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
   }
 
   /* USER CODE END 3 */
@@ -321,18 +318,6 @@ static void MX_TIM2_Init(void)
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }
@@ -1156,6 +1141,36 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     	  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 100);
     	  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 100);
 	  }
+	  else if(rx_byte == 0x33){
+		  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 10);
+	  }
+	  else if(rx_byte == 0x34){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 20);
+	  }
+	  else if(rx_byte == 0x35){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 30);
+	  }
+	  else if(rx_byte == 0x36){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 40);
+	  }
+	  else if(rx_byte == 0x37){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 50);
+	  }
+	  else if(rx_byte == 0x38){
+		  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 60);
+	  }
+	  else if(rx_byte == 0x39){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 70);
+	  }
+	  else if(rx_byte == 0x3A){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 80);
+	  }
+	  else if(rx_byte == 0x3B){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 90);
+	  }
+	  else if(rx_byte == 0x3C){
+	  	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 100);
+	  }
       else {
     	  HAL_GPIO_WritePin(IN1_1_GPIO_Port, IN1_1_Pin, GPIO_PIN_RESET);
     	  HAL_GPIO_WritePin(IN2_1_GPIO_Port, IN2_1_Pin, GPIO_PIN_RESET);
@@ -1170,6 +1185,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     	  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
     	  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
     	  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 0);
+    	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
       }
     }
 }
